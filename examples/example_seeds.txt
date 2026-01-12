@@ -1,0 +1,19 @@
+# Example Seeds for Procedural Landscape Generator
+# Each seed produces a unique, reproducible landscape
+
+# Interesting landscapes
+12345       # Default test landscape
+42          # Hitchhiker's guide
+271828      # Euler's number (truncated)
+314159      # Pi (truncated)
+
+# Feature-specific examples
+1000        # High mountains
+2000        # Many lakes
+3000        # Dense forest
+4000        # Cave systems
+
+# Random favorites (discovered during testing)
+847291      # Balanced features
+193847      # Dramatic cliffs
+562891      # Island-like
