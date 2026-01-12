@@ -23,8 +23,11 @@ class NoiseGenerator:
         Args:
             seed: Integer seed for reproducible noise generation
         """
-        self.seed = seed
-        self._rng = np.random.default_rng(seed)
+        # Limit seed to valid range for noise library (base parameter)
+        # The noise library's base parameter works best with smaller values
+        self._base_seed = abs(seed) % 65536
+        self.seed = seed  # Keep original for reference
+        self._rng = np.random.default_rng(seed)  # Use full seed for RNG
 
         # Generate base offsets for each octave to ensure variety
         self._offsets = self._rng.random((8, 2)) * 10000
@@ -57,7 +60,7 @@ class NoiseGenerator:
                 octaves=octaves,
                 persistence=persistence,
                 lacunarity=lacunarity,
-                base=self.seed
+                base=self._base_seed
             )
         else:
             # Fallback: simple multi-octave sine-based noise
@@ -95,7 +98,7 @@ class NoiseGenerator:
                 octaves=octaves,
                 persistence=persistence,
                 lacunarity=lacunarity,
-                base=self.seed
+                base=self._base_seed
             )
         else:
             return self._fallback_noise_3d(x, y, z, octaves, persistence, lacunarity, scale)
